@@ -1,15 +1,18 @@
 import express from 'express'
+import cors from 'cors'
+import path from 'path'
+import { users, healthCheck, items, points } from './routes'
 
 const app = express()
 
-app.get('/', (_req, res) => res.send('welcome'))
+app.use(cors())
+app.use(express.json())
 
-app.get('/users', (_req, res) => {
-  res.json([
-    'astolfo',
-    'balthazar',
-    'cardoso'
-  ])
-})
+app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')))
+
+app.use('/health-check', healthCheck)
+app.use('/users', users)
+app.use('/items', items)
+app.use('/points', points)
 
 export default app
