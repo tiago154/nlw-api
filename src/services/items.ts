@@ -1,6 +1,6 @@
 import * as repo from '../repositories/items'
 
-const buildImageUrl = (baseImageUrl: string) => item => ({
+const buildImageUrl = (baseImageUrl: string) => (item: any) => ({
   title: item.title,
   imageUrl: `${baseImageUrl}${item.image}`
 })

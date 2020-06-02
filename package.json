@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "test": "jest",
+    "build": "tsc",
     "knex:migrate": "knex migrate:latest",
     "knex:seed": "knex seed:run",
     "knex": "npm run knex:migrate && npm run knex:seed"
