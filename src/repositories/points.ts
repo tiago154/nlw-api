@@ -17,9 +17,8 @@ const insert = async (point: any) => {
     city: point.city,
     uf: point.uf
   }).then(id => id[0]).catch(err => {
-    console.error(err)
     trx.rollback()
-    return false
+    return err
   })
 
   const pointItems = point.items.map((itemId: number) => ({
@@ -27,15 +26,21 @@ const insert = async (point: any) => {
     point_id: insertedId
   }))
 
-  await trx('point_items').insert(pointItems).catch(err => {
-    console.error(err)
+  const result: number | any = await trx('point_items').insert(pointItems).then(id => id[0]).catch(err => {
     trx.rollback()
-    return false
+    return err
   })
 
   await trx.commit()
 
-  return true
+  if (!result.code) {
+    return {
+      id: insertedId,
+      ...point
+    }
+  }
+
+  return result
 }
 
 const select = async (id: number) => {
@@ -44,7 +49,7 @@ const select = async (id: number) => {
 
 const byFilters = async (city: string, uf: string, itemsIds: number[]) => {
   return await knex(TABLE)
-    .join('point_items', 'points.id', '=', 'point_items.point_id')
+    .join('point_items', 'points.id', 'point_items.point_id')
     .whereIn('point_items.item_id', itemsIds)
     .where({ city })
     .where({ uf })

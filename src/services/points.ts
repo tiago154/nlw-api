@@ -2,8 +2,7 @@ import * as repo from '../repositories/points'
 import * as repoItem from '../repositories/items'
 
 const insertPoint = async (data: any) => {
-  const ok = await repo.insert(data)
-  return ok
+  return await repo.insert(data)
 }
 
 const byId = async (id: number) => {
@@ -12,7 +11,7 @@ const byId = async (id: number) => {
 
   return {
     point,
-    items
+    items: items.map(({ id, title }) => ({ id, title }))
   }
 }
 
