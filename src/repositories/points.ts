@@ -48,13 +48,21 @@ const select = async (id: number) => {
 }
 
 const byFilters = async (city: string, uf: string, itemsIds: number[]) => {
-  return await knex(TABLE)
+  const query = knex(TABLE)
     .join('point_items', 'points.id', 'point_items.point_id')
-    .whereIn('point_items.item_id', itemsIds)
-    .where({ city })
-    .where({ uf })
     .distinct()
     .select('points.*')
+
+  if (city)
+    query.where({ city })
+
+  if (uf)
+    query.where({ uf })
+
+  if (itemsIds && itemsIds.length)
+    query.whereIn('point_items.item_id', itemsIds)
+
+  return await query
 }
 
 export {

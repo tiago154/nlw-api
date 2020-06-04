@@ -7,6 +7,10 @@ const insertPoint = async (data: any) => {
 
 const byId = async (id: number) => {
   const point = await repo.select(id)
+
+  if (!point)
+    return
+
   const items = await repoItem.selectByPointId(point.id)
 
   return {
@@ -16,8 +20,8 @@ const byId = async (id: number) => {
 }
 
 const byFilters = async (city: string, uf: string, items: string) => {
-  const parsedItems = String(items).split(',')
-    .map(item => Number(item.trim()))
+  const parsedItems = String(items).split(',').map(item => Number(item.trim())).filter(n => !Number.isNaN(n))
+
   const filteredPoints = await repo.byFilters(city, uf, parsedItems)
 
   return filteredPoints

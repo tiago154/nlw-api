@@ -5,15 +5,20 @@ import { insertPoint, byId, byFilters } from '../services/points'
 const create = async (req: Request, res: Response) => {
   const data = req.body
   const result = await insertPoint(data)
-  if (result.code) {
-    return res.status(400).json({ items: 'There are one or more items that do not exist' })
-  }
+
+  if (result.code)
+    return res.status(400).send('There are one or more items that do not exist')
+
   return res.json(result)
 }
 
 const show = async (req: Request, res: Response) => {
   const { id } = req.params
   const point = await byId(Number(id))
+
+  if (!point)
+    return res.sendStatus(404)
+
   return res.json(point)
 }
 
