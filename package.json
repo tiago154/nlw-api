@@ -38,10 +38,12 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@types/multer": "^1.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.21.1",
+    "multer": "^1.4.2",
     "sqlite3": "^4.2.0"
   }
 }

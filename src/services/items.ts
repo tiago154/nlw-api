@@ -1,17 +1,16 @@
 import * as repo from '../repositories/items'
+import { Request } from 'express'
+import imageUrlBuilder from '../util/image-url-builder'
 
-const buildImageUrl = (baseImageUrl: string) => (item: any) => ({
+const buildImageUrl = (protocol: string, host: string) => (item: any) => ({
   id: item.id,
   title: item.title,
-  imageUrl: `${baseImageUrl}${item.image}`
+  imageUrl: imageUrlBuilder(protocol, host, 'uploads', item.image)
 })
 
-const baseImageUrlBuilder = (protocol: string, host: string) => `${protocol}://${host}/uploads/`
-
-const listFormattedItems = async (protocol: string, host: string) => {
-  const urlImage = baseImageUrlBuilder(protocol, host)
+const listFormattedItems = async ({ protocol, hostname }: Request) => {
   const items = await repo.list()
-  const serializedItems = items.map(buildImageUrl(urlImage))
+  const serializedItems = items.map(buildImageUrl(protocol, hostname))
   return serializedItems
 }
 

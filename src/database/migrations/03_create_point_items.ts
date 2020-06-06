@@ -6,7 +6,7 @@ export const up = async (knex: Knex) => {
     table.foreign('point_id').references('points.id')
 
     table.integer('item_id').unsigned()
-    table.foreign('item_id', 'tunga').references('items.id')
+    table.foreign('item_id').references('items.id')
 
     table.primary(['point_id', 'item_id'])
   })

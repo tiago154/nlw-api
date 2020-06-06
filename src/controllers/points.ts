@@ -3,18 +3,16 @@ import { insertPoint, byId, byFilters } from '../services/points'
 
 // Ajustar StatusCode
 const create = async (req: Request, res: Response) => {
-  const data = req.body
-  const result = await insertPoint(data)
+  const result = await insertPoint(req)
 
   if (result.code)
-    return res.status(400).send('There are one or more items that do not exist')
+    return res.status(400).send(result)
 
   return res.json(result)
 }
 
 const show = async (req: Request, res: Response) => {
-  const { id } = req.params
-  const point = await byId(Number(id))
+  const point = await byId(req)
 
   if (!point)
     return res.sendStatus(404)
@@ -23,8 +21,7 @@ const show = async (req: Request, res: Response) => {
 }
 
 const index = async (req: Request, res: Response) => {
-  const { city, uf, items } = req.query
-  const point = await byFilters(city as string, uf as string, items as string)
+  const point = await byFilters(req)
 
   res.json(point)
 }

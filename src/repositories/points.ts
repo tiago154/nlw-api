@@ -8,7 +8,7 @@ const insert = async (point: any) => {
   const trx = await knex.transaction()
 
   const insertedId = await trx(TABLE).insert({
-    image: 'image-fake',
+    image: point.image,
     name: point.name,
     email: point.email,
     whatsapp: point.whatsapp,
@@ -21,10 +21,14 @@ const insert = async (point: any) => {
     return err
   })
 
-  const pointItems = point.items.map((itemId: number) => ({
-    item_id: itemId,
-    point_id: insertedId
-  }))
+  if (insertedId.code)
+    return insertedId
+
+  const pointItems = point.items
+    .map((itemId: number) => ({
+      item_id: itemId,
+      point_id: insertedId
+    }))
 
   const result: number | any = await trx('point_items').insert(pointItems).then(id => id[0]).catch(err => {
     trx.rollback()
