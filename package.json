@@ -21,7 +21,10 @@
     "@babel/preset-typescript": "^7.10.1",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.6",
+    "@types/express-form-data": "^2.0.1",
+    "@types/hapi__joi": "^17.1.2",
     "@types/jest": "^25.2.3",
+    "@types/multer": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "eslint": "^7.1.0",
@@ -38,7 +41,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@types/multer": "^1.4.3",
+    "celebrate": "^12.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

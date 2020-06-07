@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { insertPoint, byId, byFilters } from '../services/points'
 
-// Ajustar StatusCode
 const create = async (req: Request, res: Response) => {
   const result = await insertPoint(req)
 

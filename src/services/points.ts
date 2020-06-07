@@ -13,6 +13,7 @@ const insertPoint = async ({ body, file, hostname, protocol }: Request) => {
     items: itemsParsed,
     image: file.filename
   }
+
   const pointsDb = await repo.insert(point)
   return {
     ...pointsDb,
