@@ -16,3 +16,5 @@ RUN cp /app/src/database/database.sqlite /app/dist/src/database/database.sqlite
 
 WORKDIR /app/dist
 
+CMD node src/index.js
+
