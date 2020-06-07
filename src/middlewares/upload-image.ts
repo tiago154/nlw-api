@@ -14,7 +14,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
   req.file.filename = filename
 
-  const pathImage = path.resolve(process.cwd(), 'uploads', 'points2', filename)
+  const pathImage = path.resolve(process.cwd(), 'uploads', 'points', filename)
 
   return writeFilePromise(pathImage, file.buffer).then(() => next()).catch(() => res.status(500).json({ error: 'file upload failed' }))
 }
