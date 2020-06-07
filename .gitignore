@@ -103,6 +103,7 @@ dist/
 
 # DynamoDB Local files
 .dynamodb/
+!./src/database/database.sqlite
 
 # Temporary folders
 tmp/
