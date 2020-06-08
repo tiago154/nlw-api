@@ -103,7 +103,7 @@ dist/
 
 # DynamoDB Local files
 .dynamodb/
-!./src/database/database.sqlite
+src/database/database.sqlite
 
 # Temporary folders
 tmp/
@@ -120,6 +120,6 @@ temp/
 # Ignore all local history of files
 .history
 
-!./uploads/points/*
+uploads/points/*
 
 # End of https://www.gitignore.io/api/node,visualstudiocode
